@@ -1,6 +1,6 @@
 import tools from "../data/tools.js";
 // import bosses from "../data/bosses.js";
-// import npcs from "../data/npcs.js"
+import npcs from "../data/npcs.js"
 import logger from "../utils/logger.js"
 
 export const getTools = (req, res) => {
@@ -31,11 +31,15 @@ export const getTools = (req, res) => {
 //   }
 // };
 
-// export const getNPCs = (req, res) => {
-//   try {
-//     return res.status(200).json(npcs);
-//   } catch (error) {
-//     logger.error(`Error in get npcs controller: ${error.message}`)
-//   }
-// };
+export const getNpcById = (req, res) => {
+  const { id } = req.params;
 
+  // Find NPC with matching id
+  const npc = npcs.find(n => n.id === id);
+
+  if (!npc) {
+    return res.status(404).json({ message: `NPC with id '${id}' not found.` });
+  }
+
+  return res.status(200).json(npc);
+};
