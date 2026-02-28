@@ -1,26 +1,41 @@
 import Player from "../models/Player.js"
 import bosses from "../data/bosses.js"
 import logger from "../utils/logger.js";
+import { publishEvent } from "../utils/rabbitMQ.js";
 
 // Create new player
 export const createPlayer = async (req, res) => {
   try {
-    const username = req.body.username;
-    const user =  await Player.findOne({username})
-    if(user){
-      return res.status(400).json({
-        message: "Username already exists"
-      })
+    const { username, email } = req.body;
+
+    // Validate input
+    if (!username || !email) {
+      return res.status(400).json({ message: "Username and email are required" });
     }
-    const player = await Player.create({
-      username: username
-    });
+
+    // Check for existing user
+    const user = await Player.findOne({ email });
+    if (user) {
+      return res.status(400).json({ message: "Username or email already exists" });
+    }
+
+    const player = await Player.create({ username, email });
+
+    await publishEvent("auth.user.registered", player);
     logger.info(`Player: ${player.username} created`);
+
     res.status(201).json(player);
   } catch (err) {
+    // Check for MongoDB duplicate key error
+    if (err.code === 11000) {
+      return res.status(400).json({ message: "Username or email already exists" });
+    }
     res.status(400).json({ error: err.message });
   }
 };
+export const loginPlayer = async(req,res) => {
+
+}
 
 // Load Full Player Profile
 export const loadPlayer = async (req, res) => {

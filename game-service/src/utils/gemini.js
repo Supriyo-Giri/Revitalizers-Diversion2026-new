@@ -4,7 +4,7 @@ import { GoogleGenerativeAI } from "@google/generative-ai";
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 
 const model = genAI.getGenerativeModel({
-  model: "gemini-1.5-flash"
+  model: "gemini-3-flash-preview"
 });
 
 /**
@@ -13,18 +13,21 @@ const model = genAI.getGenerativeModel({
  */
 export async function generateText(prompt) {
   try {
+    // Use a plain string for input
     const response = await model.generateContent({
-      contents: [{ text: prompt }],
-      maxOutputTokens: 500
+      input: prompt,
+      // optional: model parameters
+      temperature: 0.2,
+      top_p: 0.95,
     });
 
-    const outputText = response?.response?.[0]?.content?.[0]?.text;
+    const outputText = response?.candidates?.[0]?.output;
 
     if (!outputText) {
       throw new Error("Gemini returned no output text");
     }
 
-    console.log("Gemini Output:", outputText); // optional debug
+    console.log("Gemini Output:", outputText);
     return outputText;
   } catch (err) {
     console.error("Gemini API Error:", err);

@@ -2,7 +2,12 @@
 import mongoose from "mongoose";
 
 const playerSchema = new mongoose.Schema({
+  // playerId: {
+  //   type: mongoose.Schema.Types.ObjectId
+  // },
   username: { type: String, required: true },
+  email: { type: String, required: true, unique:true },
+
   xp: { type: Number, default: 0 },
   level: { type: Number, default: 1 },
   inventory: {

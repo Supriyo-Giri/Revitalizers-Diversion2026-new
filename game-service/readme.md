@@ -4,7 +4,8 @@
    
    new player [POST] http://localhost:3000/api/player/new 
     body: {
-    "username": "Supriyo21"
+    "username": "Supriyo21",
+    "email": "supriyogiri372@gmail.com"
     }
 
    load player [GET] http://localhost:3000/api/player/:id 
@@ -18,7 +19,7 @@
 ## Game control
    tools [GET] http://localhost:3000/api/game/tools
 
-   bosses [GET] http://localhost:3000/api/game/bosses
+   bosses [GET] http://localhost:3000  
 
    npcs [GET] http://localhost:3000/api/game/npcs
 
