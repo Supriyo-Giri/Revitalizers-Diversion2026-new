@@ -4,6 +4,14 @@ import logger from "./utils/logger.js";
 
 const app = express();
 
+app.get("/",(req,res)=>{
+  logger.info("Mail-Server up and running...");
+  res.status(200).json({
+    message:"mail service is up and running",
+    success: true
+  })
+})
+
 const startMailService = async () => {
   try {
     await connectRabbitMQ();
