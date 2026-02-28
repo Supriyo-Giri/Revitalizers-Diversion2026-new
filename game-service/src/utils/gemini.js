@@ -1,27 +1,14 @@
-// utils/gemini.js
-import { GoogleGenerativeAI } from "@google/generative-ai";
+import { GoogleGenAI } from "@google/genai";
 
-const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
+const ai = new GoogleGenAI({ apiKey: "AIzaSyDteItkOGjrPzFamtNZqxnIIJ5x168-Ctk" });
 
-const model = genAI.getGenerativeModel({
-  model: "gemini-3-flash-preview"
-});
-
-/**
- * generateText(prompt)
- * Sends prompt to Gemini and returns plain text
- */
 export async function generateText(prompt) {
   try {
-    // Use a plain string for input
-    const response = await model.generateContent({
-      input: prompt,
-      // optional: model parameters
-      temperature: 0.2,
-      top_p: 0.95,
-    });
-
-    const outputText = response?.candidates?.[0]?.output;
+  const response = await ai.models.generateContent({
+    model: "gemini-3-flash-preview",
+    contents: prompt,
+  });
+    const outputText = response.text;
 
     if (!outputText) {
       throw new Error("Gemini returned no output text");
@@ -34,3 +21,16 @@ export async function generateText(prompt) {
     throw new Error("Gemini API error: " + err.message);
   }
 }
+
+
+
+
+// const ai = new GoogleGenAI({ apiKey: "YOUR_API_KEY" });
+
+// async function main() {
+//   const response = await ai.models.generateContent({
+//     model: "gemini-3-flash-preview",
+//     contents: "Explain how AI works in a few words",
+//   });
+//   console.log(response.text);
+// }

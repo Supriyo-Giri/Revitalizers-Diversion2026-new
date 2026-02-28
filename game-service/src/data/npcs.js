@@ -35,6 +35,32 @@ const npcs = [
     },
     requiredComplexity: "O(n)",
     rewardXP: 75
+  },
+
+  // bosses merged as NPCs with only first question
+  {
+    id: "sorted-guardian",
+    name: "Sorted Guardian",
+    role: "Boss",
+    dialogue: "I guard the secrets of sorted arrays.",
+    mission: {
+      title: "Find target in sorted array",
+      description: "Given sorted array and target, return index."
+    },
+    requiredComplexity: "O(log n)",
+    rewardXP: 150
+  },
+  {
+    id: "chaos-beast",
+    name: "Chaos Beast",
+    role: "Boss",
+    dialogue: "I thrive in disorder and complexity.",
+    mission: {
+      title: "Sort unsorted array",
+      description: "Sort large dataset efficiently."
+    },
+    requiredComplexity: "O(n log n)",
+    rewardXP: 200
   }
 ];
 

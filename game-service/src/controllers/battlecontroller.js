@@ -1,13 +1,12 @@
 import npcs from "../data/npcs.js";
 import Player from "../models/Player.js";
-// import model from "../utils/gemini.js";
 import logger from "../utils/logger.js";
-// import { generateText } from "../utils/gemini.js";
 import { generateText } from "../utils/gemini.js";
 
 export const fightNPC = async (req, res) => {
   const { npcId, toolSequence, playerId } = req.body;
 
+  // Find NPC (including merged bosses)
   const npc = npcs.find(n => n.id === npcId);
   if (!npc) return res.status(404).json({ error: "NPC not found" });
 
@@ -40,11 +39,9 @@ Respond ONLY in JSON:
   "reason": "short explanation"
 }
 `;
-
   try {
     const resultText = (await generateText(prompt)).trim();
     let aiResult;
-
     try {
       aiResult = JSON.parse(resultText);
     } catch {
@@ -62,31 +59,53 @@ Respond ONLY in JSON:
       }
     }
 
-    // Schema check
+    // Validate AI schema
     if (
       typeof aiResult.valid !== "boolean" ||
-      typeof aiResult.meetsRequirement !== "boolean"
+      typeof aiResult.meetsRequirement !== "boolean" ||
+      typeof aiResult.complexity !== "string" ||
+      typeof aiResult.reason !== "string"
     ) {
       logger.error("AI returned invalid schema", { aiResult });
       return res.status(500).json({ error: "AI returned invalid schema" });
     }
 
+    let rewards = [];
+
     if (aiResult.valid && aiResult.meetsRequirement) {
+      // Grant XP
       player.xp += npc.rewardXP;
+      rewards.push({ type: "XP", amount: npc.rewardXP });
+
+      // Grant unlockReward if exists (for bosses)
+      if (npc.unlockReward) {
+        if (!player.tools) player.tools = [];
+        if (!player.tools.includes(npc.unlockReward)) {
+          player.tools.push(npc.unlockReward);
+          rewards.push({ type: "Tool", name: npc.unlockReward });
+        }
+      }
+
       await player.save();
 
       return res.json({
         success: true,
-        xpGained: npc.rewardXP,
+        rewards,
         ai: aiResult
       });
     } else {
-      return res.json({ success: false, ai: aiResult });
+      return res.json({
+        success: false,
+        rewards: [],
+        ai: aiResult
+      });
     }
   } catch (err) {
     logger.error("AI evaluation failed", { error: err });
-    return res.status(500).json({ error: "AI evaluation failed", message: err.message,
-      api:process.env.GEMINI_API_KEY
-     });
+    return res.status(500).json({
+      error: "AI evaluation failed",
+      message: err.message,
+      apiKeyUsed: process.env.GEMINI_API_KEY || "not set"
+    });
   }
 };
