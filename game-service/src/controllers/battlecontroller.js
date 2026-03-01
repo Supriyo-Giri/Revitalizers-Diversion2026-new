@@ -77,12 +77,12 @@ Respond ONLY in JSON:
       player.xp += npc.rewardXP;
       rewards.push({ type: "XP", amount: npc.rewardXP });
 
-      // Grant unlockReward if exists (for bosses)
-      if (npc.unlockReward) {
+      // Grant rewardTool if exists (for bosses)
+      if (npc.rewardTool) {
         if (!player.tools) player.tools = [];
-        if (!player.tools.includes(npc.unlockReward)) {
-          player.tools.push(npc.unlockReward);
-          rewards.push({ type: "Tool", name: npc.unlockReward });
+        if (!player.tools.includes(npc.rewardTool)) {
+          player.tools.push(npc.rewardTool);
+          rewards.push({ type: "Tool", name: npc.rewardTool });
         }
       }
 
