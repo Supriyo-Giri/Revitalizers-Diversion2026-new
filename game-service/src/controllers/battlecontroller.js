@@ -79,9 +79,9 @@ Respond ONLY in JSON:
 
       // Grant rewardTool if exists (for bosses)
       if (npc.rewardTool) {
-        if (!player.tools) player.tools = [];
-        if (!player.tools.includes(npc.rewardTool)) {
-          player.tools.push(npc.rewardTool);
+        if (!player.inventory) player.inventory = [];
+        if (!player.inventory.includes(npc.rewardTool)) {
+          player.inventory.push(npc.rewardTool);
           rewards.push({ type: "Tool", name: npc.rewardTool });
         }
       }
