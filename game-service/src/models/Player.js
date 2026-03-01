@@ -12,7 +12,7 @@ const playerSchema = new mongoose.Schema({
   level: { type: Number, default: 1 },
   inventory: {
     type: [String],
-    default: ["LinearSearch"]
+    default: ["LinearSearch","Print"]
   },
   defeatedBosses: {
     type: [String],
