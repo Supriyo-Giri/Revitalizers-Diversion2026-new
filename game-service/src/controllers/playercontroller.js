@@ -16,7 +16,8 @@ export const createPlayer = async (req, res) => {
     // Check for existing user
     const user = await Player.findOne({ email });
     if (user) {
-      return res.status(400).json({ message: "Username or email already exists" });
+      //return res.status(400).json({ message: "Username or email already exists" });
+      return res.status(200).json(user)
     }
 
     const player = await Player.create({ username, email });
