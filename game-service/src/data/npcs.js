@@ -1,8 +1,8 @@
 // data/npcs.js
 const npcs = [
   {
-    id: "training-apprentice",
-    name: "Training Apprentice",
+    id: "apprentice",
+    name: "Apprentice",
     role: "Guide",
     dialogue: "Let's start simple. Every journey begins with small steps.",
     mission: {
@@ -11,7 +11,7 @@ const npcs = [
     },
     requiredComplexity: "O(n)",
     rewardXP: 20,
-    rewardTool: "LinearSearch"
+    rewardTool: "MergeSort",
   },
   {
     id: "array-warrior",
@@ -24,11 +24,11 @@ const npcs = [
     },
     requiredComplexity: "O(n)",
     rewardXP: 50,
-    rewardTool: "MergeSort"
+    rewardTool: "QuickSort"
   },
   {
-    id: "sort-monk",
-    name: "Sort Monk",
+    id: "sorter",
+    name: "Sorter",
     role: "Trainer",
     dialogue: "Brute force may work... but elegance wins wars.",
     mission: {
@@ -37,11 +37,11 @@ const npcs = [
     },
     requiredComplexity: "O(n log n)",
     rewardXP: 75,
-    rewardTool: "QuickSort"
+    rewardTool: "BFS"
   },
   {
-    id: "elder-coder",
-    name: "Elder Coder",
+    id: "pathfinder",
+    name: "Pathfinder",
     role: "Guide",
     dialogue: "To defeat enemies, your algorithm must be efficient.",
     mission: {
@@ -50,11 +50,11 @@ const npcs = [
     },
     requiredComplexity: "O(n log n)",
     rewardXP: 100,
-    rewardTool: "BFS"
+    rewardTool: "BinarySearch"
   },
   {
-    id: "sorted-guardian",
-    name: "Sorted Guardian",
+    id: "guardian",
+    name: "Guardian",
     role: "Boss",
     dialogue: "I guard the secrets of sorted arrays. Only the worthy pass.",
     mission: {
@@ -63,7 +63,7 @@ const npcs = [
     },
     requiredComplexity: "O(log n)",
     rewardXP: 150,
-    rewardTool: "BinarySearch"
+    rewardTool: "HeapSort"
   }
 ];
 
