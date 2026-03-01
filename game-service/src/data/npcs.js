@@ -1,28 +1,17 @@
 // data/npcs.js
 const npcs = [
   {
-    id: "elder-coder",
-    name: "Elder Coder",
+    id: "training-apprentice",
+    name: "Training Apprentice",
     role: "Guide",
-    dialogue: "To defeat enemies, your algorithm must be efficient.",
+    dialogue: "Let's start simple. Every journey begins with small steps.",
     mission: {
-      title: "Optimize Pathfinding",
-      description: "Find the shortest path from start to finish in a weighted graph."
+      title: "Find the Needle",
+      description: "Search for a specific number in a small unsorted array."
     },
-    requiredComplexity: "O(n log n)",
-    rewardXP: 100
-  },
-  {
-    id: "sort-monk",
-    name: "Sort Monk",
-    role: "Trainer",
-    dialogue: "Brute force may work... but elegance wins wars.",
-    mission: {
-      title: "Sort the Scrolls",
-      description: "Sort a large list of magical scrolls by their rarity and power level."
-    },
-    requiredComplexity: "O(n log n)",
-    rewardXP: 50
+    requiredComplexity: "O(n)",
+    rewardXP: 20,
+    rewardTool: "LinearSearch"
   },
   {
     id: "array-warrior",
@@ -34,33 +23,47 @@ const npcs = [
       description: "Combine multiple sorted arrays into a single sorted array efficiently."
     },
     requiredComplexity: "O(n)",
-    rewardXP: 75
+    rewardXP: 50,
+    rewardTool: "MergeSort"
   },
-
-  // bosses merged as NPCs with only first question
+  {
+    id: "sort-monk",
+    name: "Sort Monk",
+    role: "Trainer",
+    dialogue: "Brute force may work... but elegance wins wars.",
+    mission: {
+      title: "Sort the Scrolls",
+      description: "Sort a list of magical scrolls by their rarity and power level."
+    },
+    requiredComplexity: "O(n log n)",
+    rewardXP: 75,
+    rewardTool: "QuickSort"
+  },
+  {
+    id: "elder-coder",
+    name: "Elder Coder",
+    role: "Guide",
+    dialogue: "To defeat enemies, your algorithm must be efficient.",
+    mission: {
+      title: "Optimize Pathfinding",
+      description: "Find the shortest path from start to finish in a weighted graph."
+    },
+    requiredComplexity: "O(n log n)",
+    rewardXP: 100,
+    rewardTool: "BFS"
+  },
   {
     id: "sorted-guardian",
     name: "Sorted Guardian",
     role: "Boss",
-    dialogue: "I guard the secrets of sorted arrays.",
+    dialogue: "I guard the secrets of sorted arrays. Only the worthy pass.",
     mission: {
-      title: "Find target in sorted array",
-      description: "Given sorted array and target, return index."
+      title: "Find Target in Sorted Array",
+      description: "Given a sorted array and a target, return its index efficiently."
     },
     requiredComplexity: "O(log n)",
-    rewardXP: 150
-  },
-  {
-    id: "chaos-beast",
-    name: "Chaos Beast",
-    role: "Boss",
-    dialogue: "I thrive in disorder and complexity.",
-    mission: {
-      title: "Sort unsorted array",
-      description: "Sort large dataset efficiently."
-    },
-    requiredComplexity: "O(n log n)",
-    rewardXP: 200
+    rewardXP: 150,
+    rewardTool: "BinarySearch"
   }
 ];
 
